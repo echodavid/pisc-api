@@ -6,6 +6,7 @@ import { DataSource } from 'typeorm';
 import 'dotenv/config'; 
 import * as faker from 'faker';
 import { Condicion } from '../condiciones/entities/condicione.entity';
+import { Autorizacion } from '../autorizacion/entities/autorizacion.entity';
 
 const AppDataSource = new DataSource({
   type: 'mariadb',
@@ -14,12 +15,25 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [Paciente, Medico, Consulta, Procedimiento, Condicion],
+  entities: [Paciente, Medico, Consulta, Procedimiento, Condicion, Autorizacion],
   synchronize: true,
 });
 
 async function seed() {
   await AppDataSource.initialize();
+
+  await AppDataSource.query('SET FOREIGN_KEY_CHECKS = 0;');
+
+  await AppDataSource.manager.clear(Consulta);
+  await AppDataSource.manager.clear(Procedimiento);
+  await AppDataSource.manager.clear(Condicion);
+  await AppDataSource.manager.clear(Autorizacion);
+  await AppDataSource.manager.clear(Paciente);
+  await AppDataSource.manager.clear(Medico);
+
+  // Habilita claves foráneas
+  await AppDataSource.query('SET FOREIGN_KEY_CHECKS = 1;');
+
 
   // Crear muchos médicos
   const medicos: Medico[] = [];
@@ -47,6 +61,23 @@ async function seed() {
     pacientes.push(paciente);
   }
   await AppDataSource.manager.save(pacientes);
+
+  // Crear autorizaciones (cada paciente autoriza entre 1 y 3 médicos)
+  const autorizaciones: Autorizacion[] = [];
+  for (const paciente of pacientes) {
+    const numAutorizaciones = faker.datatype.number({ min: 1, max: 3 });
+    const medicosAutorizados = faker.helpers.shuffle(medicos).slice(0, numAutorizaciones);
+    for (const medico of medicosAutorizados) {
+      const expiresAt = new Date(Date.now() + faker.datatype.number({ min: 1, max: 7 }) * 24 * 60 * 60 * 1000); // 1-7 días
+      const autorizacion = AppDataSource.manager.create(Autorizacion, {
+        paciente,
+        medico,
+        expiresAt,
+      });
+      autorizaciones.push(autorizacion);
+    }
+  }
+  await AppDataSource.manager.save(autorizaciones);
 
   // Crear consultas, procedimientos y condiciones para cada paciente
   const consultas: Consulta[] = [];

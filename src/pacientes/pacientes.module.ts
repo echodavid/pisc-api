@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Paciente } from './entities/paciente.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Paciente])], // <-- IMPORTANTE
+
   controllers: [PacientesController],
   providers: [PacientesService],
-  imports: [TypeOrmModule.forFeature([Paciente])], // Importa el módulo de TypeORM para la entidad Paciente
-  exports: [PacientesService], // Exporta el servicio para que pueda ser utilizado en otros módulos
 })
 export class PacientesModule {}

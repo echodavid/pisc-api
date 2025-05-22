@@ -58,4 +58,9 @@ export class AutorizacionService {
       relations: ['paciente', 'medico'],
     });
   }
+
+  async remove(id: string): Promise<{ deleted: boolean }> {
+    const result = await this.autorizacionRepository.delete(id);
+    return { deleted: (result.affected ?? 0) > 0 };
+  }
 }

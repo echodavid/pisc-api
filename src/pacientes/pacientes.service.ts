@@ -12,6 +12,9 @@ export class PacientesService {
     private readonly pacienteRepository: Repository<Paciente>,
   ) {}
 
+  async findByEmail(email: string) {
+  return this.pacienteRepository.findOne({ where: { email } });
+}
   async create(createPacienteDto: CreatePacienteDto): Promise<Paciente> {
     const paciente = this.pacienteRepository.create(createPacienteDto);
     return this.pacienteRepository.save(paciente);

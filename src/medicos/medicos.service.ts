@@ -16,6 +16,9 @@ export class MedicosService {
     const medico = this.medicoRepository.create(createMedicoDto);
     return this.medicoRepository.save(medico);
   }
+    async findByCedula(cedula: string): Promise<Medico | null> {
+    return this.medicoRepository.findOne({ where: { cedula } });
+  }
 
   async findAll(): Promise<Medico[]> {
     return this.medicoRepository.find();

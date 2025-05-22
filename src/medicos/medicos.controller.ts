@@ -27,6 +27,11 @@ export class MedicosController {
     return this.medicosService.update(id, updateMedicoDto);
   }
 
+    @Get('cedula/:cedula')
+  findByCedula(@Param('cedula') cedula: string) {
+    return this.medicosService.findByCedula(cedula);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.medicosService.remove(id);

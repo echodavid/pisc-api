@@ -66,6 +66,7 @@ Esto generará médicos, pacientes, consultas, condiciones y procedimientos de e
 - `GET /api/pacientes/:id` — Obtener paciente por ID
 - `POST /api/medicos` — Crear médico
 - `GET /api/medicos` — Listar médicos
+- `GET /api/medicos/cedula/:cedula` — Buscar médico por cédula
 - `POST /api/autorizaciones` — Autorizar a un médico (requiere pacienteId, medicoId y duración)
 - `GET /api/autorizaciones/paciente/:pacienteId` — Ver médicos autorizados por paciente
 - `GET /api/autorizaciones/medico/:medicoId` — Ver pacientes autorizados para el médico

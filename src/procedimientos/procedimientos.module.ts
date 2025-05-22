@@ -9,6 +9,6 @@ import { Paciente } from '../pacientes/entities/paciente.entity';
   controllers: [ProcedimientosController],
   providers: [ProcedimientosService],
   imports: [TypeOrmModule.forFeature([Procedimiento, Paciente])], // Importa el módulo de TypeORM para la entidad Procedimiento
-  exports: [TypeOrmModule], // Exporta el módulo de TypeORM para la entidad Procedimiento
+  exports: [TypeOrmModule, ProcedimientosService], // Exporta el módulo de TypeORM para la entidad Procedimiento
 })
 export class ProcedimientosModule {}

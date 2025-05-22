@@ -60,15 +60,22 @@ Esto generará médicos, pacientes, consultas, condiciones y procedimientos de e
 
 ## Endpoints principales
 
+
 - `POST /api/pacientes` — Crear paciente
 - `GET /api/pacientes` — Listar pacientes
 - `GET /api/pacientes/:id` — Obtener paciente por ID
 - `POST /api/medicos` — Crear médico
 - `GET /api/medicos` — Listar médicos
-- `GET /api/consultas/paciente/:pacienteId` — Consultas por paciente
-- `GET /api/consultas/medico/:medicoId` — Consultas por médico
-- `GET /api/condiciones/paciente/:pacienteId` — Condiciones por paciente
-- `GET /api/procedimientos/paciente/:pacienteId` — Procedimientos por paciente
+- `POST /api/autorizaciones` — Autorizar a un médico (requiere pacienteId, medicoId y duración)
+- `GET /api/autorizaciones/paciente/:pacienteId` — Ver médicos autorizados por paciente
+- `GET /api/autorizaciones/medico/:medicoId` — Ver pacientes autorizados para el médico
+- `GET /api/consultas/paciente/:pacienteId/medico/:medicoId` — Consultas de un paciente (requiere autorización vigente)
+- `GET /api/condiciones/paciente/:pacienteId/medico/:medicoId` — Condiciones de un paciente (requiere autorización vigente)
+- `GET /api/procedimientos/paciente/:pacienteId/medico/:medicoId` — Procedimientos de un paciente (requiere autorización vigente)
+- `GET /api/hce/:pacienteId/medico/:medicoId` — Resumen completo de la historia clínica electrónica (requiere autorización vigente)
+- `POST /api/hce/:pacienteId/medico/:medicoId/consulta` — Registrar consulta (requiere autorización vigente)
+- `POST /api/hce/:pacienteId/medico/:medicoId/condicion` — Registrar diagnóstico/condición (requiere autorización vigente)
+- `POST /api/hce/:pacienteId/medico/:medicoId/procedimiento` — Registrar procedimiento (requiere autorización vigente)
 
 ## Pruebas
 

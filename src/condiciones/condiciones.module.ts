@@ -9,6 +9,6 @@ import { Paciente } from '../pacientes/entities/paciente.entity';
   controllers: [CondicionesController],
   providers: [CondicionesService],
   imports: [TypeOrmModule.forFeature([Condicion, Paciente])], // Importa el módulo de TypeORM para la entidad Condicion
-  exports: [TypeOrmModule], // Exporta el servicio para que pueda ser utilizado en otros módulos
+  exports: [TypeOrmModule, CondicionesService], // Exporta el servicio para que pueda ser utilizado en otros módulos
 })
 export class CondicionesModule {}

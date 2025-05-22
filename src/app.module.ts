@@ -9,6 +9,8 @@ import { ConsultasModule } from './consultas/consultas.module';
 import { ProcedimientosModule } from './procedimientos/procedimientos.module';
 import { CondicionesModule } from './condiciones/condiciones.module';
 import { ConfigModule } from '@nestjs/config'; 
+import { AutorizacionModule } from './autorizacion/autorizacion.module';
+import { HceModule } from './hce/hce.module';
 
 
 @Module({
@@ -30,6 +32,8 @@ import { ConfigModule } from '@nestjs/config';
     ConsultasModule,
     ProcedimientosModule,
     CondicionesModule,
+    AutorizacionModule,
+    HceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,6 +10,6 @@ import { Medico } from '../medicos/entities/medico.entity';
   controllers: [ConsultasController],
   providers: [ConsultasService],
   imports: [TypeOrmModule.forFeature([Consulta, Paciente, Medico])], // Importa el módulo de TypeORM para la entidad Consulta
-  exports: [TypeOrmModule], // Exporta el servicio para que pueda ser utilizado en otros módulos
+  exports: [TypeOrmModule, ConsultasService], // Exporta el servicio para que pueda ser utilizado en otros módulos
 })
 export class ConsultasModule {}
